@@ -7,6 +7,15 @@
 int main()
 {
     inventory inven = inventory_init();
-    inventory_read_and_add(&inven);
-    printf("%s  %d\n", inven.books[0]->author, inven.books_num);
+    while(1)
+    {
+        inventory_read_and_add(&inven);
+        if(getc(stdin) == 'n')
+        {
+            getc(stdin);
+            break;
+        }
+        getc(stdin);
+    }
+    inventory_vomit(&inven);
 }

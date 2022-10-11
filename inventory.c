@@ -16,7 +16,7 @@ inventory inventory_init()
 
 int add_book(inventory *inven, char name[], char author[])
 {
-    inven->books = realloc(inven->books, sizeof(book*));
+    inven->books = realloc(inven->books, sizeof(book*) * (inven->books_num + 1));
     if(inven->books == NULL) return 1;
 
     inven->books[inven->books_num] = book_init(inven->curr_book_id, name, author);
@@ -25,7 +25,7 @@ int add_book(inventory *inven, char name[], char author[])
     return 0;
 }
 
-int read_and_add_book(inventory *inven)
+int inventory_read_and_add(inventory *inven)
 {
     char name[30];
     char author[30];
@@ -36,4 +36,14 @@ int read_and_add_book(inventory *inven)
     fgets(author, 29, stdin);
     author[strcspn(author, "\n")] = '\0';
     return add_book(inven, name, author);
+}
+
+void inventory_vomit(inventory *inven)
+{
+    printf("ID|\t|Name|\t|Author\n");
+    for (int i = 0; i < inven->books_num; i++)
+    {
+        printf("%d|\t|%s|\t|%s\n", inven->books[i]->id, inven->books[i]->name, inven->books[i]->author);
+    }
+    printf("\n\n\n");
 }

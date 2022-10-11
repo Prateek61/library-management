@@ -14,7 +14,9 @@ inventory inventory_init();
 // Adds book to inventory
 int add_book(inventory *inven, char name[], char author[]);
 // Reads book from user and adds to inventory
-int read_and_add_book(inventory *inven);
+int inventory_read_and_add(inventory *inven);
+// Prints books in inventory
+void inventory_vomit(inventory *inven);
 // Frees memory of inventory and books in it
 int inventory_murder(inventory *inven);
 
