@@ -18,4 +18,5 @@ int main()
         getc(stdin);
     }
     inventory_vomit(&inven);
+    inventory_murder(&inven);
 }

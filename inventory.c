@@ -47,3 +47,13 @@ void inventory_vomit(inventory *inven)
     }
     printf("\n\n\n");
 }
+
+int inventory_murder(inventory *inven)
+{
+    for (int i = 0; i < inven->books_num; i++)
+    {
+        free(inven->books[i]);
+    }
+    free(inven->books);
+    return 0;
+}
