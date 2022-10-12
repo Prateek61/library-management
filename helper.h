@@ -18,5 +18,7 @@ typedef struct book{
 } book;
 // Initializes book
 book *book_init(int id, char name[], char author[]);
+// Adds book to file
+int add_book_to_file(book *book_ptr, char *file_name);
 
 #endif
