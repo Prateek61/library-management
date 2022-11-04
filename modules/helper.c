@@ -31,7 +31,7 @@ void int_vec_push_back(int_vec *vec, int value)
         int_vec_realloc(vec);
     }
 
-    vec->vec[vec->size + 1] = value;
+    vec->vec[vec->size] = value;
     vec->size += 1;
 }
 
@@ -90,6 +90,15 @@ int int_vec_find(int_vec *vec, int value)
     }
 
     return -1;
+}
+
+void int_vec_print(int_vec *vec)
+{
+    for (int i = 0; i < int_vec_size(vec); i++)
+    {
+        printf("%d ", int_vec_get(vec, i));
+    }
+    printf("\n");
 }
 
 void int_vec_destroy(int_vec *vec)

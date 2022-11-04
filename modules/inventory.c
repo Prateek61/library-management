@@ -35,6 +35,10 @@ void book_add(book *new_book)
     {
         new_book->id = -1;
     }
+    else
+    {
+        books_info_update_add();
+    }
 }
 
 int book_read_and_add()

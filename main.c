@@ -2,6 +2,8 @@
 #include <stdlib.h>
 
 #include "modules/inventory.h"
+#include "modules/fileio.h"
+#include "modules/fileio.h"
 
 void ui();
 int options();
@@ -9,6 +11,7 @@ int options();
 int main()
 {
     ui();
+
     return 0;
 }
 
@@ -16,24 +19,34 @@ void ui()
 {
     while(1)
     {
-        printf("continue?: ");
-        if(getc(stdin) == 'n')
+        int selected = options();
+        if (selected == 0)
         {
-            getc(stdin);
             break;
         }
-        book_read_and_add();
-        getc(stdin);
+        switch(selected)
+        {
+            case 1:
+                fgetc(stdin);
+                book_read_and_add();
+                break;
+            case 2:
+                books_print_all();
+                break;
+        }
     }
-    books_print_all();
 }
 
 int options()
 {
+    printf("\n\n");
     int i = 1;
-    printf("%d: Add book", i);
+    printf("%d:\t Add book\n", i);
     i++;
-    printf("%d: Print all books", i);
+    printf("%d:\t Print all books\n", i);
 
-    printf("0:/t Exit");
+    printf("0:\t Exit\n");
+    printf("Enter option: ");
+    fscanf(stdin, "%d", &i);
+    return i;
 }

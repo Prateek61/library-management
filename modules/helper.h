@@ -28,6 +28,8 @@ int int_vec_size(int_vec *vec);
 int int_vec_find(int_vec *vec, int value);
 // Sorts the integer vector (flag 0 for ascending and 1 for descending)
 void int_vec_sort(int_vec *vec, int flag); //todo
+// Prints the vector
+void int_vec_print(int_vec *vec);
 // Destroys the vector
 void int_vec_destroy(int_vec *vec);
 
