@@ -1,22 +1,10 @@
-CC=clang
+CC=gcc
 CFLAGS=-Wall -g
 
-all: mainapp
+all: main
 
-main: helper.c main.c inventory.c
-	$(CC) $(CFLAGS) -o out helper.c inventory.c main.c
-
-mainapp: helper.o main.o inventory.o
-	$(CC) $(CFLAGS) -o out helper.o inventory.o main.o
-
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c
-
-helper.o: helper.c
-	$(CC) $(CFLAGS) -c helper.c
-
-inventory.o: inventory.c
-	$(CC) $(CFLAGS) -c inventory.c
+main: modules/fileio.c modules/helper.c modules/inventory.c main.c
+	$(CC) $(CFLAGS) -o out modules/fileio.c modules/helper.c modules/inventory.c main.c
 
 clean:
-	rm *.o out mainapp
+	rm out
