@@ -32,5 +32,7 @@ int book_read_and_add();
 void books_print(int_vec *vec);
 // Prints all books
 void books_print_all();
+// Finds book
+void book_find();
 
 #endif

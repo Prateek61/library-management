@@ -7,6 +7,7 @@
 
 void ui();
 int options();
+void pause();
 
 int main()
 {
@@ -27,26 +28,52 @@ void ui()
         switch(selected)
         {
             case 1:
+                printf("\n");
                 fgetc(stdin);
                 book_read_and_add();
+                pause(0);
                 break;
             case 2:
+                printf("\n");
                 books_print_all();
+                pause(1);
                 break;
+            case 3:
+                printf("\n");
+                book_find();
+                pause(1);
+                break;
+            default:
+                printf("Incorrect option..\n");
+                pause(1);
         }
     }
 }
 
 int options()
 {
-    printf("\n\n");
+    printf("\n");
+    printf("----------MENU------------\n");
     int i = 1;
     printf("%d:\t Add book\n", i);
     i++;
     printf("%d:\t Print all books\n", i);
+    i++;
+    printf("%d:\t Find book\n", i);
 
     printf("0:\t Exit\n");
     printf("Enter option: ");
     fscanf(stdin, "%d", &i);
     return i;
+}
+
+void pause(int do_get)
+{
+    printf("Press Enter to continue...");
+    while(do_get--)
+    {
+        fgetc(stdin);
+    }
+    while(fgetc(stdin) != '\n');
+    printf("\n");
 }

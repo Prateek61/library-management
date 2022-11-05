@@ -1,4 +1,8 @@
 out
+test
+test.c
 *.o
+
+# data files
 books
 books_info

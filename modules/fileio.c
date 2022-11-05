@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "fileio.h"
 #include "helper.h"
@@ -35,6 +36,42 @@ book books_query_id(int book_id)
     }
     fclose(fp);
     return new_book;
+}
+
+int_vec books_query(char *name, char *author)
+{
+    int_vec new_vec = int_vec_init();
+    if (name[0] == 0 && author[0] == 0)
+    {
+        return new_vec;
+    }
+    FILE *fp = fopen(books_file, "rb");
+    if (fp)
+    {
+        book temp_book;
+        while(fread(&temp_book, sizeof(book), 1, fp))
+        {
+            if (name[0] != 0 && author[0] != 0)
+            {
+                if (strstr(temp_book.name, name) && strstr(temp_book.author, author))
+                {
+                    int_vec_push_back(&new_vec, temp_book.id);
+                }
+            }
+            else if (name[0] != 0 && strstr(temp_book.name, name))
+            {
+                int_vec_push_back(&new_vec, temp_book.id);
+            }
+            else if (author[0] != 0 && strstr(temp_book.author, author))
+            {
+                int_vec_push_back(&new_vec, temp_book.id);
+            }
+        }
+
+        fclose(fp);
+    }
+
+    return new_vec;
 }
 
 int_vec books_get_all()

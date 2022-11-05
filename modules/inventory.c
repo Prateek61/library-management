@@ -60,10 +60,14 @@ int book_read_and_add()
 void books_print(int_vec *vec)
 {
     printf("ID\t|Name\t|Author\n");
+    book tmp_book;
     for (int i = 0; i < int_vec_size(vec); i++)
     {
-        book tmp_book = books_query_id(int_vec_get(vec, i));
-         printf("%d\t|%s\t|%s\n", tmp_book.id, tmp_book.name, tmp_book.author);
+        tmp_book = books_query_id(int_vec_get(vec, i));
+        if (tmp_book.id > 0)
+        {
+            printf("%d\t|%s\t|%s\n", tmp_book.id, tmp_book.name, tmp_book.author);
+        }
     }
 }
 
@@ -72,5 +76,45 @@ void books_print_all()
     int_vec book_ids = books_get_all();
     books_print(&book_ids);
     int_vec_destroy(&book_ids);
+}
+
+void book_find()
+{
+    int_vec vec = int_vec_init();
+
+    int id;
+    printf("Enter id(0 if can't): ");
+    fscanf(stdin, "%d", &id);
+
+    if (id > 0)
+    {
+        int_vec_push_back(&vec, id);
+    }
+    else
+    {
+        fgetc(stdin);
+        char name[30];
+        char author[30];
+        printf("Enter name or part of name of book('#' in cant): ");
+        fgets(name, 29, stdin);
+        name[strcspn(name, "\n")] = '\0';
+        if (name[0] == '#')
+        {
+            name[0] = 0;
+        }
+
+        printf("Enter author or part of author name('#' if cant): ");
+        fgets(author, 29, stdin);
+        author[strcspn(author, "\n")] = '\0';
+        if (author[0] == '#')
+        {
+            author[0] = 0;
+        }
+
+        vec = books_query(name, author);
+    }
+    printf("\n");
+    books_print(&vec);
+    int_vec_destroy(&vec);
 }
 /*****************************************************************************************************************************/

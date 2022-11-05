@@ -9,7 +9,7 @@ int book_add_to_file(book *book_ptr);
 // Queries book by id
 book books_query_id(int book_id); //todo (impliment binary search instead)
 // Queries book by author and/or name
-book books_query(char *name, char *author); //todo
+int_vec books_query(char *name, char *author); //todo
 // Gets all book ids from file
 int_vec books_get_all(); //todo (make better)
 
