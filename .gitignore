@@ -5,4 +5,5 @@ test.c
 
 # data files
 books
-books_info
+info
+inventory

@@ -17,10 +17,12 @@ book *book_init_ptr(int id, char name[], char author[]);
 /**************************************************************************************************/
 
 // Structure for books info
-typedef struct books_info{
+typedef struct info{
     int curr_book_id;
     int total_books;
-} books_info;
+    int curr_inventory_id;
+    int total_inventory;
+} info;
 
 /**************************************************************************************************/
 
@@ -34,5 +36,28 @@ void books_print(int_vec *vec);
 void books_print_all();
 // Finds book
 void book_find();
+
+/**************************************************************************************************/
+// Structure for inventory
+typedef struct inventory{
+    int id;
+    int book_id;
+    int amount;
+    int borrowed;
+} inventory;
+// Initializes inventory
+inventory inventory_init(int id, int book_id, int amount, int borrowed);
+
+/**************************************************************************/
+// Adds inventory
+void inventory_add(inventory *new_inven);
+// Reads and add inventory to file
+int inventory_read_and_add();
+// Prints inventory given vector of inventory ids
+void inventory_print(int_vec *vec);
+// Prints all inventory
+void inventory_print_all(); 
+// Finds inventory
+void inventory_find();
 
 #endif

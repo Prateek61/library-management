@@ -43,6 +43,17 @@ void ui()
                 book_find();
                 pause(1);
                 break;
+            case 4:
+                printf("\n");
+                fgetc(stdin);
+                inventory_read_and_add();
+                pause(0);
+                break;
+            case 5:
+                printf("\n");
+                inventory_print_all();
+                pause(1);
+                break;
             default:
                 printf("Incorrect option..\n");
                 pause(1);
@@ -60,6 +71,10 @@ int options()
     printf("%d:\t Print all books\n", i);
     i++;
     printf("%d:\t Find book\n", i);
+    i++;
+    printf("%d:\t Add inventory\n", i);
+    i++;
+    printf("%d:\t Print all inventory\n", i);
 
     printf("0:\t Exit\n");
     printf("Enter option: ");
