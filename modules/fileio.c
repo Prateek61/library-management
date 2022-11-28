@@ -239,7 +239,7 @@ int inventory_update(inventory *inven)
 {
     FILE *fp = fopen(inventory_file, "rb");
     FILE *fp_tmp = fopen(temp_file, "wb");
-
+    int update_into_temp = 0;
     if (fp == NULL || fp_tmp == NULL)
     {
         return -1;
@@ -259,6 +259,11 @@ int inventory_update(inventory *inven)
         {
             if (temp.id == inven->id)
             {
+                if (inven->amount == 0 && inven->borrowed == 0)
+                {
+                    update_into_temp = 1;
+                    continue;
+                }
                 fwrite(inven, sizeof(inventory), 1, fp_tmp);
             }
             else
@@ -272,5 +277,12 @@ int inventory_update(inventory *inven)
         rename(temp_file, inventory_file);
     }
 
+    if (update_into_temp)
+    {
+        if (info_update_inventory_remove() != 0)
+        {
+            return -2;
+        }
+    }
     return 0;
 }

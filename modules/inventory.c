@@ -169,6 +169,30 @@ int inventory_read_and_add()
     return new_inven.id;
 }
 
+int inventory_read_and_remove()
+{
+    int book_id;
+    int amount;
+    printf("Enter id of book: ");
+    fscanf(stdin, "%d", &book_id);
+    printf("Enter amount of books to remove: ");
+    fscanf(stdin, "%d", &amount);
+    fgetc(stdin);
+
+    inventory temp_inven = inventory_query_book_id(book_id);
+    inventory new_inven = inventory_init(-1, book_id, -amount, 0);
+    if (amount > temp_inven.amount - temp_inven.borrowed)
+    {
+        printf("Not enough books in inventory\n");
+        return -1;
+    }
+    else
+    {
+        inventory_add(&new_inven);
+        return new_inven.id;
+    }
+}
+
 void inventory_print(int_vec *vec)
 {
     printf("ID\t|Book ID\t|Book Name\t|Amount\t|Borrowed\n");
@@ -214,7 +238,50 @@ void inventory_find()
             int_vec_push_back(&vec, inventory_query_book_id(book_id).id);
         }
     }
-
     inventory_print(&vec);
     int_vec_destroy(&vec);
+}
+
+void inventory_lend()
+{
+    int book_id;
+    int amount;
+    printf("Enter book id: ");
+    fscanf(stdin, "%d", &book_id);
+    printf("Enter amount of books to lend: ");
+    fscanf(stdin, "%d", &amount);
+    fgetc(stdin);
+
+    inventory temp_inven = inventory_query_book_id(book_id);
+    if (amount > temp_inven.amount - temp_inven.borrowed)
+    {
+        printf("Not enough books in inventory\n");
+    }
+    else
+    {
+        temp_inven.borrowed += amount;
+        inventory_update(&temp_inven);
+    }
+}
+
+void inventory_return()
+{
+    int book_id;
+    int amount;
+    printf("Enter book id: ");
+    fscanf(stdin, "%d", &book_id);
+    printf("Enter amount of books to return: ");
+    fscanf(stdin, "%d", &amount);
+    fgetc(stdin);
+
+    inventory temp_inven = inventory_query_book_id(book_id);
+    if (amount > temp_inven.borrowed)
+    {
+        printf("Not enough books borrowed\n");
+    }
+    else
+    {
+        temp_inven.borrowed -= amount;
+        inventory_update(&temp_inven);
+    }
 }

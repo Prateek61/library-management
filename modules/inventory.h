@@ -53,11 +53,17 @@ inventory inventory_init(int id, int book_id, int amount, int borrowed);
 void inventory_add(inventory *new_inven);
 // Reads and add inventory to file
 int inventory_read_and_add();
+// Reads and remove books in inventory from file
+int inventory_read_and_remove();
 // Prints inventory given vector of inventory ids
 void inventory_print(int_vec *vec);
 // Prints all inventory
 void inventory_print_all(); 
 // Finds inventory
 void inventory_find();
+// Lends book
+void inventory_lend();
+// Returns book
+void inventory_return();
 
 #endif
